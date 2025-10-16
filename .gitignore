@@ -1,7 +1,14 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# Mac
+.DS_Store
+
 # VS Code settings
 .vscode/
-
-# Object files
-*.o
-
-.DS_Store
