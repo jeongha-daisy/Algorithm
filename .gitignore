@@ -1,0 +1,7 @@
+# VS Code settings
+.vscode/
+
+# Object files
+*.o
+
+.DS_Store
