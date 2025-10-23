@@ -19,3 +19,9 @@ K번째까지 하나하나 인덱스를 올리는 것이 단점
 
     if(it == numberList.end())
         it = numberList.begin();
+
+## [5397 키로거](https://www.acmicpc.net/problem/5397)
+
+string 생성자를 이용해 list를 string으로 효율적 변환
+
+    string s(str.begin(), str.end());
