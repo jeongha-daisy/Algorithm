@@ -64,3 +64,47 @@ previous_bracket으로 바로 전 bracket의 모양을 저장한다.
 열린 괄호가 나올 때마다 새로운 스틱이 추가된 것으로 보고 current_stick의 값을 하나 올린다.
 닫힌 괄호가 나오고 바로 전 괄호가 열린 괄호였다면 레이저이므로 추가했던 스틱을 취소하고, 현재 스틱들을 자른다고 가정, total_sticks에 현재 스틱만큼 값을 추가한다.
 닫힌 괄호가 나오고 바로 전 괄호가 열린 괄호가 아니라면 스틱이 끝났다는 뜻이므로 current_stick의 값을 하나 줄이고 total_sticks에 하나를 추가한다.
+
+## [2504 괄호의 값](https://www.acmicpc.net/problem/2504)
+
+스택에 괄호의 모양과 자식 괄호의 점수를 저장한다. 열린 괄호가 들어올 때는 점수 0과 함께 push 연산만 수행하고, 닫힌 괄호가 들어왔을 때 조건에 맞는 연산을 한다. 기본적으로 pop을 두 번 수행해 내 바깥 괄호의 점수값을 갱신하여 다시 스택에 넣는다.
+
+    else if (bracket == ')')
+        {
+            // 스택이 비었거나 괄호 짝이 맞지 않는 경우 올바르지 못한 괄호열이므로 0을 출력
+            if (stk.empty() || stk.top().first == '[')
+                return 0;
+
+            // 짝꿍이 되는 열린 괄호를 현재 괄호로 본다.
+            pair<char, int> my_bracket = stk.top();
+            stk.pop();
+
+            // pop 수행 후 스택이 비었다면 바깥을 감싸는 바깥 괄호가 더이상 없는 것이다.
+            if (stk.empty())
+            {
+                // 내부 괄호의 숫자 * 2를 저장한다. 값이 0이라면 내부 괄호가 없는 것이므로 2를 저장한다.
+                if(my_bracket.second == 0)
+                    ans += 2;
+                ans += my_bracket.second * 2;
+                continue;
+            }
+
+            // pop 수행 후 스택이 비어있지 않다면 바깥을 감싸는 바깥 괄호가 있다.
+            pair<char, int> exterior_bracket = stk.top();
+            stk.pop();
+
+            // 현재 내 괄호의 점수 값이 0이면 내부 괄호가 없는 것이다.
+            if (my_bracket.second == 0)
+            {
+                // 바깥 괄호에 2점만 추가한다.
+                exterior_bracket.second += 2;
+            }
+            else
+            {
+                // 내 괄호의 점수 값이 0이 아니면 내부 괄호가 있는 것이므로 내 점수 값에 2를 곱해 바깥 괄호의 점수 값에 저장한다.
+                exterior_bracket.second += my_bracket.second * 2;
+            }
+
+            // 갱신된 바깥 괄호를 다시 스택에 추가한다.
+            stk.push(exterior_bracket);
+        }
