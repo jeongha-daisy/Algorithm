@@ -3,19 +3,12 @@
 using namespace std;
 
 // 전역 변수
-int box[501][501] = {};
-int visited[501][501] = {};
+int box[1001][1001] = {};
 int dx[4] = {0, 0, 1, -1};
 int dy[4] = {1, -1, 0, 0};
 
-void BFS(int n, int m, int i, int j)
+void BFS(queue<pair<int, int>> q, int n, int m)
 {
-
-    queue<pair<int, int>> q;
-
-    q.push(make_pair(i, j));
-    visited[i][j] += 1;
-
     while (!q.empty())
     {
         int x = q.front().first;
@@ -25,34 +18,12 @@ void BFS(int n, int m, int i, int j)
         {
             int nx = x + dx[i];
             int ny = y + dy[i];
-
             if (nx >= 0 && nx < n && ny >= 0 && ny < m)
             {
-                if (box[nx][ny] == 0 && box[nx][ny] != -1)
+                if (box[nx][ny] == 0)
                 {
-
-                    // cout << "   다음 노드의 위치: " << nx << " " << ny << ", 값: " << visited[nx][ny] << endl;
-
-                    // 아직 방문하지 않은 경우
-                    if (visited[nx][ny] == 0)
-                    {
-                        visited[nx][ny] += visited[x][y] + 1;
-                        q.push(make_pair(nx, ny));
-                    }
-                    // 이미 방문 한 경우 (0도 아니고 벽도 아님)
-                    else if (visited[nx][ny] != -1)
-                    {
-                        if (visited[nx][ny] > visited[x][y] + 1)
-                        {
-                            visited[nx][ny] = visited[x][y] + 1;
-                            q.push(make_pair(nx, ny));
-                        }
-                    }
-                    // 벽인 경우
-                    else
-                    {
-                        continue;
-                    }
+                    box[nx][ny] = box[x][y] + 1;
+                    q.push(make_pair(nx, ny));
                 }
             }
         }
@@ -61,29 +32,31 @@ void BFS(int n, int m, int i, int j)
 
 void solution(int n, int m)
 {
+    queue<pair<int, int>> q;
 
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            if (box[i][j] == 1 && !visited[i][j])
+            if (box[i][j] == 1)
             {
-                BFS(n, m, i, j);
+                q.push(make_pair(i, j));
             }
         }
     }
+    BFS(q, n, m);
 
     int longgest = 0;
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < m; j++)
         {
-            if (visited[i][j] == 0)
+            if (box[i][j] == 0)
             {
                 cout << -1;
                 return;
             }
-            longgest = max(longgest, visited[i][j]);
+            longgest = max(longgest, box[i][j]);
         }
     }
     cout << longgest - 1;
@@ -105,10 +78,6 @@ int main()
             int info;
             cin >> info;
             box[i][j] = info;
-            if (info == -1)
-            {
-                visited[i][j] = info;
-            }
         }
     }
     solution(n, m);
