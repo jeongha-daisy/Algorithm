@@ -1,0 +1,67 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+#define MAX 100001
+#define MIN 0
+int map[MAX];
+bool visited[MAX];
+queue<int> q;
+
+void solution(int n, int k)
+{
+    q.push(n);
+    visited[n] = true;
+    map[n] = 0;
+    while (!q.empty())
+    {
+        int a = q.front();
+        q.pop();
+        if (!visited[a - 1] && a - 1 < MAX && a - 1 >= MIN)
+        {
+            q.push(a - 1);
+            map[a - 1] += map[a] + 1;
+            visited[a - 1] = true;
+            if (a - 1 == k)
+            {
+                cout << map[a - 1];
+                return;
+            }
+        }
+
+        if (!visited[a + 1] && a + 1 < MAX && a + 1 >= MIN)
+        {
+            q.push(a + 1);
+            map[a + 1] += map[a] + 1;
+            visited[a + 1] = true;
+            if (a + 1 == k)
+            {
+                cout << map[a + 1];
+                return;
+            }
+        }
+
+        if (!visited[2 * a] && 2 * a < MAX && 2 * a >= MIN)
+        {
+            q.push(2 * a);
+            map[2 * a] += map[a] + 1;
+            visited[2 * a] = true;
+            if (2 * a == k)
+            {
+                cout << map[2 * a];
+                return;
+            }
+        }
+    }
+}
+
+int main()
+{
+    // 입출력 최적화
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int N, K;
+    cin >> N >> K;
+    solution(N, K);
+    return 0;
+}
