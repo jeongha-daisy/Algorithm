@@ -46,4 +46,34 @@
 ## [11967 불켜기](https://www.acmicpc.net/problem/11967)
 
 해당 칸에서 켤 수 있는 불의 방 위치를 리스트로 저장한다.
-불을 켠 방에서 도달할 수 있는지 확인하기 위한 상하좌우 검사를 실시한다. 불을 켠 방으로부터 상하좌우에서 이미 방문한 방이 있다면 해당 방으로 도달할 수 있다는 뜻이다.
+
+    vector<pair<int, int>> map[101][101];
+
+입장한 방에서 켤 수 있는 불의 방을 모두 켠 후, 불을 켠 방까지 도달할 수 있는지 확인하기 위한 상하좌우 검사를 실시한다. 불을 켠 방으로부터 상하좌우에서 이미 방문한 방이 있다면 해당 방으로 도달할 수 있다는 뜻이다. 도달할 수 있다면, 불을 켠 방도 큐에 넣는다.
+
+        for (pair<int, int> p : map[x][y])
+        {
+            if (!lighted[p.first][p.second])
+            {
+                lighted[p.first][p.second] = true;
+                answer++;
+                for (int i = 0; i < 4; i++)
+                {
+                    int nx = p.first + dx[i];
+                    int ny = p.second + dy[i];
+                    if (nx > 0 && nx <= n && ny > 0 && ny <= n)
+                    {
+                        // 도달할 수 있는 방
+                        if (visited[nx][ny])
+                        {
+                            q.push(make_pair(p.first, p.second));
+                            visited[p.first][p.second] = true;
+                        }
+                    }
+                }
+            }
+        }
+
+## [13549 숨바꼭질 3](https://www.acmicpc.net/problem/13549)
+
+-1, *2와 +1, +1은 동일한 거리에 도달하지만 총 비용이 다르다. *2를 최대한 많이 쓰는 게 유리한데 이걸 많이 쓰기 위해서는 반대되는 방향, 즉 -1이 많을수록 유리하다. 그래서 -1이 +1보다 먼저 와야 한다. [출처] (https://www.acmicpc.net/board/view/144960)
