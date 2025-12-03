@@ -57,6 +57,7 @@ int main()
         myCards.push_back(a);
     }
 
+    // 정렬
     sort(myCards.begin(), myCards.end());
 
     int m;
