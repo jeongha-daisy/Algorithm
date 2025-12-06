@@ -77,3 +77,11 @@
 ## [13549 숨바꼭질 3](https://www.acmicpc.net/problem/13549)
 
 -1, *2와 +1, +1은 동일한 거리에 도달하지만 총 비용이 다르다. *2를 최대한 많이 쓰는 게 유리한데 이걸 많이 쓰기 위해서는 반대되는 방향, 즉 -1이 많을수록 유리하다. 그래서 -1이 +1보다 먼저 와야 한다. [출처] (https://www.acmicpc.net/board/view/144960)
+
+## [7569 토마토](https://www.acmicpc.net/problem/7569)
+
+3개의 자료형을 묶고싶을 때는 tuple을 사용하고, tuple의 값에 접근하려면 인덱스를 이용한다.
+
+        int z = get<0>(q.front());
+        int x = get<1>(q.front());
+        int y = get<2>(q.front());
