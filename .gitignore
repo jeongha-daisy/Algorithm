@@ -12,3 +12,7 @@
 
 # VS Code settings
 .vscode/
+
+.idea
+
+template.cpp
