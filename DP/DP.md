@@ -48,6 +48,14 @@ n번 계단에 도달하는 방법은 두 계단 올라 오거나 한 계단 올
 
 endl 은 줄을 넘긴 후 flush 연산을 수행하기 때문에 대부분의 경우 '\n'이 적당하다.
 
+## [1912 연속합](https://www.acmicpc.net/problem/1912)
+
+i번째 수를 반드시 포함하는 누적합의 최대값을 저장한다.
+
+    cumulativeSum[i] = max(numbers[i], cumulativeSum[i - 1] + numbers[i]);
+
+i-1까지 저장된 누적합이 음수이면, 누적합을 그냥 새로 시작한다. (음수는 오히려 최대값과 멀어지게 함)
+
 ---
 
 ## [LeetCode] Coin Change
