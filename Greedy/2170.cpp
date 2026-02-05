@@ -26,11 +26,6 @@ void solution()
     // 시작 점 기준 정렬
     sort(lines, lines + n, compare);
 
-    for (int i = 0; i < n; i++)
-    {
-
-        cout << lines[0].first << " " << lines[0].second << endl;
-    }
     int startPoint = lines[0].first;
     int endPoint = lines[0].second;
     answer += endPoint - startPoint;
